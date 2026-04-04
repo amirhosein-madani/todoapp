@@ -93,7 +93,9 @@ class Profile(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     profile_picture = models.ImageField( upload_to="profile_Pictures", blank=True , null=True)
 
-
+    def __str__(self):
+        return self.user.username
+    
 @receiver(post_save , sender= MyUser)
 def save_profile(sender, instance , created , **kwargs):
         if created:

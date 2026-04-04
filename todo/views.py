@@ -15,7 +15,7 @@ class TaskListView(LoginRequiredMixin , ListView):
     template_name = "task_list.html"
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
+        return self.model.objects.filter(user=self.request.user.profile)
 
 
 class AddTaskView(LoginRequiredMixin , CreateView):
@@ -29,7 +29,7 @@ class AddTaskView(LoginRequiredMixin , CreateView):
 
     def form_valid(self, form):
 
-        form.instance.user = self.request.user
+        form.instance.user = self.request.user.profile
         return super(AddTaskView, self).form_valid(form)
 
 class DeleteTaskView(LoginRequiredMixin , DeleteView):
@@ -42,7 +42,7 @@ class DeleteTaskView(LoginRequiredMixin , DeleteView):
 
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
+        return self.model.objects.filter(user=self.request.user.profile)
 
 class UpdateTaskView( LoginRequiredMixin ,  UpdateView):
     '''
@@ -54,7 +54,7 @@ class UpdateTaskView( LoginRequiredMixin ,  UpdateView):
     success_url = reverse_lazy("task_list")
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
+        return self.model.objects.filter(user=self.request.user.profile)
 
 
 class CompleteTaskView(LoginRequiredMixin,View):
@@ -67,7 +67,7 @@ class CompleteTaskView(LoginRequiredMixin,View):
 
     def get(self, request, pk , *args, **kwargs ):
 
-        task = get_object_or_404(Task, id=pk, user=request.user)
+        task = get_object_or_404(Task, id=pk, user=request.user.profile)
         task.is_complete  =  True
         task.save()
         return redirect(self.success_url)
@@ -84,7 +84,7 @@ class UndoneTaskView(LoginRequiredMixin,View):
 
     def get(self, request, pk , *args, **kwargs ):
 
-        task = get_object_or_404(Task, id=pk, user=request.user)
+        task = get_object_or_404(Task, id=pk, user=request.user.profile)
         task.is_complete  =  False
         task.save()
         return redirect(self.success_url)

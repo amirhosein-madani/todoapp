@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
     'accounts',
     'todo',
-    'rest_framework'
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
