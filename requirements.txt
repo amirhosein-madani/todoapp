@@ -8,3 +8,5 @@ django-filter
 drf-yasg
 djangorestframework-simplejwt
 django-templated-email
+pytest
+pytest-django

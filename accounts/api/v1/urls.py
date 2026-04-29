@@ -9,7 +9,7 @@ urlpatterns = [
     path('token/login/' , CustomObtainToken.as_view() , name = 'login-token'),
     path('token/logout/' , DelteAuthTokenApiView.as_view(), name = 'login-login'),
     path('profile/' , ProfileApiView.as_view() , name = 'profile'),
-    path('register/' , RegisterApiView.as_view() , name = 'regiser_user'),
+    path('register/' , RegisterApiView.as_view() , name = 'register_user'),
     path('change-password/' ,ChangePasswordApiView.as_view() , name = 'change-password' ),
     path(
         "email-verification/<str:token>",

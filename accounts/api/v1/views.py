@@ -78,7 +78,7 @@ class RegisterApiView(GenericAPIView):
             },
         )
         return Response(
-            {"details": f"{serializer.validated_data['username']} is created and we sent a email to {email} to verify your account"},
+            {"details": f"{serializer.validated_data['username']} is created and we sent a email to {email}  you need to verify to have full acess to our site "},
             status=status.HTTP_201_CREATED
            )   
 
@@ -158,7 +158,7 @@ class ResendVerificationApiView(GenericAPIView):
         )
         return Response(
             {"details": f" we sent a email to {user.email} to verify your account"},
-            status=status.HTTP_201_CREATED
+            status=status.HTTP_200_OK
            )   
 
     def get_token_for_user(self, user):
@@ -190,7 +190,7 @@ class RequestResetPasswordApiView(GenericAPIView):
         )
         return Response(
             {"details": f" we sent a email to {user.email} to reset your passwod"},
-            status=status.HTTP_201_CREATED
+            status=status.HTTP_200_OK
            )   
 
     def get_token_for_user(self, user):
@@ -217,3 +217,5 @@ class ResendPasswordApiView(GenericAPIView):
         except (InvalidToken , TokenError):
 
             return Response({'details': 'invalid or expired token'} , status = status.HTTP_400_BAD_REQUEST)
+
+
