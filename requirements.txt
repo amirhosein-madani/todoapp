@@ -10,3 +10,5 @@ djangorestframework-simplejwt
 django-templated-email
 pytest
 pytest-django
+flake8
+black 
