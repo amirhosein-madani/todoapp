@@ -1,11 +1,20 @@
 
 
 services:
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning  
+    
   backend:
     build: .
     env_file:
       - .env  
-    container_name: todoapp
+    container_name: backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
@@ -13,11 +22,28 @@ services:
       - "8000:8000"
     depends_on:
       - smtp4dev
+      - redis
     environment:
       - EMAIL_HOST=smtp4dev
       - EMAIL_PORT=25
       - EMAIL_USE_TLS=False
-
+  worker:
+    build: .
+    command: celery -A core worker --loglevel=info  
+    volumes:
+      - .:/app
+    depends_on:
+      - backend
+      - redis
+  beat:
+    build: .
+    command: celery -A core beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .:/app
+    depends_on:
+      - backend
+      - redis
+      - worker
   smtp4dev:
     image: rnwood/smtp4dev:latest
     container_name: smtp4dev
@@ -30,3 +56,4 @@ services:
 
 volumes:
   smtp4dev-data:
+

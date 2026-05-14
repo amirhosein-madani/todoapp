@@ -5,5 +5,6 @@ urlpatterns = [
     path("login/", user_login, name="login"),
     path("signup/", signup, name="signup"),
     path("logout/", user_log_out, name="logout"),
+    path("sent-email/", sent_email, name="sent_email"),
     path("api/v1/", include("accounts.api.v1.urls")),
 ]

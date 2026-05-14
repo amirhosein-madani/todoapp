@@ -2,6 +2,8 @@ from accounts.models import MyUser as User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, SignupForm
+from .tasks import send_email
+from django.http import HttpResponse
 
 
 def user_login(request):
@@ -56,3 +58,8 @@ def signup(request):
 def user_log_out(request):
     logout(request)
     return redirect("task_list")
+
+
+def sent_email(request):
+    send_email.delay()
+    return HttpResponse("Email sent successfully!")

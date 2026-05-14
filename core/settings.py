@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     "drf_yasg",
     "rest_framework_simplejwt",
     "rest_framework.authtoken",
+    "django_celery_beat",
+    "django_celery_results",
 ]
 
 
@@ -155,3 +157,9 @@ EMAIL_HOST_PASSWORD = ""
 
 TEMPLATED_EMAIL_BACKEND = "templated_email.backends.vanilla_django.TemplateBackend"
 TEMPLATED_EMAIL_TEMPLATE_DIR = "email/"
+
+# Celery Configuration
+CELERY_BROKER_URL = "redis://redis:6379/1"
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_TIMEZONE = "Asia/Tehran"
