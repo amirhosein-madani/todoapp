@@ -52,11 +52,9 @@ cd todoapp
 ### 2. Create `.env` file
 
 ```env
-SECRET_KEY=your-secret-key
+SECRET_KEY=django-insecure-testkey123
 DEBUG=True
-EMAIL_HOST=smtp4dev
-EMAIL_PORT=25
-EMAIL_USE_TLS=False
+ALLOWED_HOSTS=127.0.0.1,localhost
 ```
 
 ### 3. Run with Docker
@@ -86,7 +84,6 @@ docker-compose exec backend python manage.py createsuperuser
 | Django API | http://localhost:8000 |
 | Swagger Docs | http://localhost:8000/swagger/ |
 | smtp4dev (Email UI) | http://localhost:3000 |
-| Redis | localhost:6379 |
 
 ---
 
@@ -101,14 +98,14 @@ docker-compose exec backend python manage.py createsuperuser
 | POST | `/accounts/api/v1/reset-password/` | Request password reset |
 | GET | `/accounts/api/v1/profile/` | Get user profile |
 
-### Blog / Posts
+### Tasks
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/blog/api/v1/post/` | List all posts |
-| POST | `/blog/api/v1/post/` | Create a post |
-| GET | `/blog/api/v1/post/{id}/` | Retrieve a post |
-| PUT | `/blog/api/v1/post/{id}/` | Update a post |
-| DELETE | `/blog/api/v1/post/{id}/` | Delete a post |
+| GET | `/tasks/api/v1/task/` | List all tasks |
+| POST | `/tasks/api/v1/task/` | Create a task |
+| GET | `/tasks/api/v1/task/{id}/` | Retrieve a task |
+| PUT | `/tasks/api/v1/task/{id}/` | Update a task |
+| DELETE | `/tasks/api/v1/task/{id}/` | Delete a task |
 
 ---
 
