@@ -44,21 +44,21 @@ jobs:
         run: docker compose run --rm backend python manage.py check
 
   
-  deploy:
-    if: success() && github.ref == 'refs/heads/master'
-    name: Deploy
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Connect and Execute Commands
-        uses: appleboy/ssh-action@master
-        with:
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          host: ${{ secrets.HOST }}
-          script: |
-            cd ${{ secrets.PROJECT_PATH }}
-            docker-compose -f docker-compose-stage.yml stop
-            git pull
-            docker-compose -f docker-compose-stage.yml up -d --build
+  # deploy:
+  #   if: success() && github.ref == 'refs/heads/master'
+  #   name: Deploy
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Connect and Execute Commands
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         username: ${{ secrets.USERNAME }}
+  #         password: ${{ secrets.PASSWORD }}
+  #         host: ${{ secrets.HOST }}
+  #         script: |
+  #           cd ${{ secrets.PROJECT_PATH }}
+  #           docker-compose -f docker-compose-stage.yml stop
+  #           git pull
+  #           docker-compose -f docker-compose-stage.yml up -d --build
